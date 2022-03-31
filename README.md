@@ -1,5 +1,3 @@
-# WARNING: WORK IN PROGRESS
-
 # spring4shell-scanner
 
 This scanner will recursively scan paths including archives for vulnerable spring-beans versions and `CachedIntrospectionResults.class` files. 
