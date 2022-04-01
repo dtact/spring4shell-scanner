@@ -26,14 +26,12 @@ var globalFlags = []cli.Flag{
 	},
 	&cli.StringSliceFlag{
 		Name:  "allow",
-		Usage: "the non-vulnerable library (log4j 2.12.3 and 2.17) hashes ",
+		Usage: "the non-vulnerable library hashes ",
 		Value: cli.NewStringSlice(
-			// 2.3.1
-			"d3057c7d413af1bf8f71ef9a2e6aa01896157ea13ed0819e4296b042b6d08fdf",
-			// 2.12.3
-			"41058a16e1fa17ae6f2d9d4f8ed20b3e39443b7fcb97d3b057a697087ae53907",
-			// 2.17.1
-			"7e9ee383f6c730557c133bb7a840b7a4225c14e786d543aeae079b3173b58017",
+			// 5.3.18
+			"e962d99bf7b3753cded86ce8ce6b4be5bed27d0b59feeb2a85948e29bba2807d",
+			// 5.2.20
+			"ab242fb119664df49c64c8af8cfb1932446bdc342d3a56453e34f40fa860f0f4",
 		),
 	},
 	&cli.BoolFlag{
