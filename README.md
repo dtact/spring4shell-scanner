@@ -1,8 +1,8 @@
-# spring4shell-scanner
+# spring4shell-scanner 
 
-This scanner will recursively scan paths including archives for vulnerable spring-beans versions and `CachedIntrospectionResults.class` files. 
+This scanner will recursively scan paths including archives for spring libraries and classes that are vulnerable to CVE-2022-22965 and CVE-2022-22963. 
 
-Currently the allow list defines non exploitable versions, in this case log4j-core 2.17.0 and 2.12.3.
+Currently the allow list defines non exploitable versions, in this case spring-beans 5.3.18 and 5.2.20 and spring cloud function context 3.2.3
 
 ![Scanning multi layered archives](./images/spring4shell.gif)
 
@@ -22,7 +22,8 @@ Currently the allow list defines non exploitable versions, in this case log4j-co
 
 | CVE | References | 
 |-----|------------|
-| CVE-2022-not-assigned | https://www.cve.org/CVERecord?id=CVE-not-assigned |
+| CVE-2022-22965| https://tanzu.vmware.com/security/cve-2022-22965 |
+| CVE-2022-22963| https://tanzu.vmware.com/security/cve-2022-22963 |
 
 
 Links
@@ -90,6 +91,6 @@ $ go build -o ./.builds/spring4shell-scanner ./main.go
 
 # Copyright and license
 
-Code and documentation copyright 2021 Remco Verhoef (DTACT).
+Code and documentation copyright 2022 Remco Verhoef (DTACT).
 
 Code released under the MIT license.

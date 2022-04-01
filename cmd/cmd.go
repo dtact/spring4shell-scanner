@@ -28,10 +28,12 @@ var globalFlags = []cli.Flag{
 		Name:  "allow",
 		Usage: "the non-vulnerable library hashes ",
 		Value: cli.NewStringSlice(
-			// 5.3.18
+			// spring beans 5.3.18
 			"e962d99bf7b3753cded86ce8ce6b4be5bed27d0b59feeb2a85948e29bba2807d",
-			// 5.2.20
+			// spring beans 5.2.20
 			"ab242fb119664df49c64c8af8cfb1932446bdc342d3a56453e34f40fa860f0f4",
+			// spring cloud function context 3.2.3
+			"52c6ae60681d0869888720c83684c6e2d7017ebc399e7794427c2cbdc0c47d72",
 		),
 	},
 	&cli.BoolFlag{

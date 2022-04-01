@@ -215,13 +215,11 @@ func (b *fuzzer) RecursiveFind(ctx *cli.Context, bc BreadCrumbs, r ArchiveReader
 				return b.RecursiveFind(ctx, bc.Add(f.Name(), hash), r2)
 			} else {
 				parts := strings.Split(path.Base(f.Name()), ".")
-				if !strings.EqualFold(parts[0], "CachedIntrospectionResults") {
-					// not JndiLookup
+				if !strings.EqualFold(parts[0], "CachedIntrospectionResults") && !strings.EqualFold(parts[0], "RoutingFunction") {
+					// not interested in other files
 				} else if bytes.Compare(data[0:4], []byte{0xCA, 0xFE, 0xBA, 0xBE}) != 0 /* class file */ {
 					// not a class file
 				} else {
-					// todo(remco): we need to pass hashes, so we can keep log4j2
-					// can we patch / replace log4j with 2.16?
 					version := "unknown"
 
 					versions := findFileHashes(shaHash.Sum(nil))
