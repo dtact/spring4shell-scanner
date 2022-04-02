@@ -8,6 +8,7 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"io"
+	"log"
 	"path"
 	"strings"
 	"sync/atomic"
@@ -232,6 +233,12 @@ func (b *fuzzer) RecursiveFind(ctx *cli.Context, bc BreadCrumbs, r ArchiveReader
 					if !b.IsAllowList(l.Hash) {
 						b.stats.IncVulnerableFile()
 						fmt.Fprintln(b.writer.Bypass(), color.RedString("[!][ ] found %s with hash %x (identified as version(s): %s)\u001b[0K", f.Name(), hash, version))
+						fileInfo, err := openLogFile(b.logFile)
+						if err != nil {
+							log.Fatal(err)
+						}
+						infoLog := log.New(fileInfo, "[warn] ", log.LstdFlags|log.Lshortfile|log.Lmicroseconds)
+						infoLog.Printf("[!][ ] found %s with hash %x (identified as version(s): %s)\u001b[0K", f.Name(), hash, version)
 
 						for i := 0; i < len(bc); i++ {
 							builder := strings.Builder{}
@@ -321,5 +328,11 @@ func (b *fuzzer) Scan(ctx *cli.Context) error {
 	i := b.stats.Files()
 	sub := time.Now().Sub(start)
 	fmt.Fprintln(b.writer.Bypass(), color.YellowString("[🏎]: Scan finished! %d files scanned, %d vulnerable files found, %d vulnerable libraries found, %d errors occured, in %s, average rate is: %0.f files/min. \u001b[0K", i, b.stats.VulnerableFiles(), b.stats.VulnerableLibraries(), b.stats.Errors(), FormatDuration(sub), float64(i)/sub.Minutes()))
+	fileInfo, err := openLogFile(b.logFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+	infoLog := log.New(fileInfo, "[warn] ", log.LstdFlags|log.Lshortfile|log.Lmicroseconds)
+	infoLog.Printf("[🏎]: Scan finished! %d files scanned, %d vulnerable files found, %d vulnerable libraries found, %d errors occured, in %s, average rate is: %0.f files/min. \u001b[0K", i, b.stats.VulnerableFiles(), b.stats.VulnerableLibraries(), b.stats.Errors(), FormatDuration(sub), float64(i)/sub.Minutes())
 	return nil
 }

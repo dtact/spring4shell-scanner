@@ -72,6 +72,17 @@ func ExcludeList(values []string) (func(b *fuzzer) error, error) {
 	}, nil
 }
 
+func LogFile(values string) (func(b *fuzzer) error, error) {
+
+	return func(b *fuzzer) error {
+
+		b.logFile = values
+
+		fmt.Fprintf(os.Stdout, "[ ] Using log file: %s\n", b.logFile)
+		return nil
+	}, nil
+}
+
 func AllowList(values []string) (func(b *fuzzer) error, error) {
 	bvalues := make([][]byte, len(values))
 
