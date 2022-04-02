@@ -39,6 +39,7 @@ type fuzzer struct {
 	remoteHosts []string
 	targetPaths []string
 	excludeList []string
+	logFile     string
 
 	stats Stats
 }
@@ -1149,4 +1150,12 @@ func FormatDuration(d time.Duration) string {
 	s := d / time.Second
 
 	return fmt.Sprintf("%02dh:%02dm:%02ds", h, m, s)
+}
+
+func openLogFile(path string) (*os.File, error) {
+	logFile, err := os.OpenFile(path, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
+	if err != nil {
+		return nil, err
+	}
+	return logFile, nil
 }

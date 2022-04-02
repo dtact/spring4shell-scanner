@@ -36,6 +36,11 @@ var globalFlags = []cli.Flag{
 			"52c6ae60681d0869888720c83684c6e2d7017ebc399e7794427c2cbdc0c47d72",
 		),
 	},
+	&cli.StringFlag{
+		Name:  "logfile",
+		Usage: "output to following file path (string)",
+		Value: "./spring4shell.log",
+	},
 	&cli.BoolFlag{
 		Name:  "disable-color",
 		Usage: "disable color output",
@@ -207,6 +212,14 @@ func ScanAction(c *cli.Context) error {
 	if exclude := c.StringSlice("exclude"); len(exclude) == 0 {
 	} else if fn, err := dirbuster.ExcludeList(exclude); err != nil {
 		ec := cli.NewExitError(color.RedString("[!] Could not set exclude list: %s", err.Error()), 1)
+		return ec
+	} else {
+		options = append(options, fn)
+	}
+
+	if logfile := c.String("logfile"); len(logfile) == 0 {
+	} else if fn, err := dirbuster.LogFile(logfile); err != nil {
+		ec := cli.NewExitError(color.RedString("[!] Could not set logfile: %s", err.Error()), 1)
 		return ec
 	} else {
 		options = append(options, fn)
