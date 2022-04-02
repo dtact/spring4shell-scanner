@@ -307,7 +307,6 @@ func New() *Cmd {
 		fmt.Println("--------------------------------------")
 
 		color.NoColor = c.Bool("disable-color")
-		fmt.Println(c.Bool("disable-color"))
 		return nil
 	}
 
